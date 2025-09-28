@@ -3,15 +3,13 @@ package Control;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class ResetPasswordFormController {
     public TextField txtEmail;
@@ -27,6 +25,19 @@ public class ResetPasswordFormController {
     }
 
     public void actionSubmit(ActionEvent actionEvent) {
+        try {
+            if(UserController.resetPassword(txtEmail.getText().trim(),txtConfirmPassword.getText().trim())){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information");
+                alert.setHeaderText(null);
+                alert.setContentText("Password Changed");
+                alert.showAndWait();
+
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     Stage primaryStage=new Stage();

@@ -18,10 +18,15 @@ public class UserController {
     }
 
 
-    /*
-    public static boolean updateUser(){
 
-    }*/
+    public static boolean resetPassword(String email,String password) throws SQLException, ClassNotFoundException {
+        String SQL="Update users set password_hash = ?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement stm = connection.prepareStatement(SQL);
+        stm.setString(1, password);
+        return stm.executeUpdate()>0;
+
+    }
 
     public static boolean userExists(String email, String password) throws SQLException, ClassNotFoundException {
         String SQL = "SELECT password_hash FROM users WHERE email = ?";
