@@ -29,6 +29,7 @@ public class MainLoginFormController {
         Stage stage = (Stage) lblReset.getScene().getWindow();
         stage.close();
 
+
         try {
             resetStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/View/ResetPasswordForm.fxml"))));
         } catch (IOException e) {
