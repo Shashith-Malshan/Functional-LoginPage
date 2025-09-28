@@ -21,6 +21,13 @@
             <artifactId>javafx-fxml</artifactId>
             <version>19</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>19</version>
+        </dependency>
     </dependencies>
 
 </project>
