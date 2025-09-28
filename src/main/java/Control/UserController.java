@@ -3,9 +3,7 @@ package Control;
 import Database.DBConnection;
 import Model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserController {
 
@@ -18,13 +16,27 @@ public class UserController {
         return stm.executeUpdate()>0;
 
     }
-    /*
-    public static User searchUser(){
 
-    }
+
+    /*
     public static boolean updateUser(){
 
     }*/
+
+    public static boolean userExists(String email, String password) throws SQLException, ClassNotFoundException {
+        String SQL = "SELECT password_hash FROM users WHERE email = ?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement stm = connection.prepareStatement(SQL);
+        stm.setString(1, email);
+        ResultSet rst = stm.executeQuery();
+
+        if (rst.next()) { // move to the first row
+            String storedPassword = rst.getString("password_hash"); // get password from DB
+            return password.equals(storedPassword); // compare passwords
+        }
+
+        return false;
+    }
 
 
 }

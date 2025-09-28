@@ -3,14 +3,12 @@ package Control;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class MainLoginFormController {
     public TextField txtEmail;
@@ -20,7 +18,18 @@ public class MainLoginFormController {
     public Label lblNew;
 
     public void actionLogin(ActionEvent actionEvent) {
-        System.out.println("success");
+
+        try {
+            if(UserController.userExists(txtEmail.getText().trim(),txtPassword.getText().trim())){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information");
+                alert.setHeaderText(null);
+                alert.setContentText("Login Success!");
+                alert.showAndWait();
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     Stage resetStage=new Stage();
