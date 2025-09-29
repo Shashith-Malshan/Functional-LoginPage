@@ -16,6 +16,7 @@ public class MainLoginFormController {
     public Button btnLogin;
     public Label lblReset;
     public Label lblNew;
+    public CheckBox checkLogged;
 
 
     public void actionLogin(ActionEvent actionEvent) {
@@ -41,6 +42,8 @@ public class MainLoginFormController {
             alert.showAndWait();
 
             if (loginSuccess) {
+                UserController.setAutoFill(txtEmail.getText().trim(),checkLogged.isSelected());
+                //UserController.setAutoFill(txtEmail.getText().trim(),checkLogged.isSelected());
                 // Optionally, navigate to the next page here
             } else {
                 txtPassword.clear();

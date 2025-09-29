@@ -33,10 +33,11 @@ public class NewAccountFormController {
     PasswordUtils passwordUtils=new PasswordUtils();
 
    public void actionCreate(ActionEvent actionEvent) {
-    User user=new User(txtEmail.getText().trim(),txtPassword.getText().trim());
+       User user=new User(txtEmail.getText().trim(),txtPassword.getText().trim());
         try {
             boolean isAdded=UserController.addUser(user);
             if (isAdded) {
+                UserController.setAutoFill(txtEmail.getText().trim(),checkLogged.isSelected());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information");
                 alert.setHeaderText(null);

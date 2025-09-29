@@ -40,6 +40,20 @@ public class UserController {
         }
     }
 
+    public static void setAutoFill(String email,boolean x) throws SQLException, ClassNotFoundException {
+        if(x){
+           String SQL ="UPDATE users SET autofill=1 WHERE email = ?";
+
+            try (Connection connection = DBConnection.getInstance().getConnection();
+                 PreparedStatement stm = connection.prepareStatement(SQL)) {
+
+                stm.setString(1, email);
+                stm.executeUpdate();
+
+            }
+        }
+    }
+
     // Check user login
     public static boolean userExists(String email, String password) throws SQLException, ClassNotFoundException {
         String SQL = "SELECT password_hash FROM users WHERE email = ?";
