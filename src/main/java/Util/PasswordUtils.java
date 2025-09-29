@@ -1,4 +1,4 @@
-package Password;
+package Util;
 
 import org.mindrot.jbcrypt.BCrypt;
 

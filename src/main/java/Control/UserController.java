@@ -2,7 +2,7 @@ package Control;
 
 import Database.DBConnection;
 import Model.User;
-import Password.PasswordUtils;
+import Util.PasswordUtils;
 
 import java.sql.*;
 

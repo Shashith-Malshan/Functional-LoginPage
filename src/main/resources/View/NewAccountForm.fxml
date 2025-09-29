@@ -44,12 +44,12 @@
             <Font name="System Bold" size="11.0" />
          </font>
       </Button>
-      <TextField fx:id="txtOtp" layoutX="24.0" layoutY="199.0" prefHeight="30.0" prefWidth="350.0" promptText="Enter OTP sent to Email address ">
+      <TextField fx:id="txtOtp1" layoutX="24.0" layoutY="199.0" prefHeight="30.0" prefWidth="30.0">
          <font>
             <Font name="System Italic" size="12.0" />
          </font>
       </TextField>
-      <Label layoutX="31.0" layoutY="265.0" text="Password">
+      <Label layoutX="31.0" layoutY="265.0" text="Util">
          <font>
             <Font name="Arial Narrow" size="14.0" />
          </font>
@@ -57,5 +57,20 @@
       <Label layoutX="108.0" layoutY="399.0" text="Already registered?" />
       <Label fx:id="lblResend" layoutX="203.0" layoutY="239.0" onMouseClicked="#clickedResend" text="Resend OTP" textFill="#0077b6" />
       <CheckBox fx:id="checkLogged" layoutX="24.0" layoutY="333.0" mnemonicParsing="false" text="Keep me logged in" />
+      <TextField fx:id="txtOtp2" layoutX="64.0" layoutY="199.0" prefHeight="30.0" prefWidth="30.0">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtOtp3" layoutX="104.0" layoutY="199.0" prefHeight="30.0" prefWidth="30.0">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtOtp4" layoutX="144.0" layoutY="199.0" prefHeight="30.0" prefWidth="30.0">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </TextField>
     </children>
 </AnchorPane>

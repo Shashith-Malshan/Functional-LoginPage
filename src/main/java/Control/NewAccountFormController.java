@@ -1,7 +1,8 @@
 package Control;
 
 import Model.User;
-import Password.PasswordUtils;
+import Util.OtpUtils;
+import Util.PasswordUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -55,8 +56,17 @@ public class NewAccountFormController {
     }
 
     public void actionGetOtp(ActionEvent actionEvent) {
+
+        Alert otpAlert = new Alert(Alert.AlertType.INFORMATION);
+        otpAlert.setTitle("OTP Verification");
+        otpAlert.setHeaderText("Your OTP is : "+OtpUtils.generateOtp());
+        otpAlert.showAndWait();
     }
 
     public void clickedResend(MouseEvent mouseEvent) {
+        Alert otpAlert = new Alert(Alert.AlertType.INFORMATION);
+        otpAlert.setTitle("OTP Verification");
+        otpAlert.setHeaderText("Your OTP is : "+OtpUtils.generateOtp());
+        otpAlert.showAndWait();
     }
 }
