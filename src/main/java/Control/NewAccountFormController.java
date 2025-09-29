@@ -82,6 +82,7 @@ public class NewAccountFormController {
         String receivedOtp=txtOtp1.getText().trim()+txtOtp2.getText().trim()+txtOtp3.getText().trim()+txtOtp4.getText().trim();
         if(receivedOtp.equals(otp)){
           lblVerified.setText("Verified");
+
         }else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
