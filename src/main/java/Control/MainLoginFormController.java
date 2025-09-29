@@ -17,20 +17,45 @@ public class MainLoginFormController {
     public Label lblReset;
     public Label lblNew;
 
+
     public void actionLogin(ActionEvent actionEvent) {
+        String email = txtEmail.getText().trim();
+        String password = txtPassword.getText().trim();
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter both email and password.");
+            alert.showAndWait();
+            return;
+        }
 
         try {
-            if(UserController.userExists(txtEmail.getText().trim(),txtPassword.getText().trim())){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Information");
-                alert.setHeaderText(null);
-                alert.setContentText("Login Success!");
-                alert.showAndWait();
+            boolean loginSuccess = UserController.userExists(email, password);
+
+            Alert alert = new Alert(loginSuccess ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
+            alert.setTitle("Login Status");
+            alert.setHeaderText(null);
+            alert.setContentText(loginSuccess ? "Login Success!" : "Invalid email or password.");
+            alert.showAndWait();
+
+            if (loginSuccess) {
+                // Optionally, navigate to the next page here
+            } else {
+                txtPassword.clear();
             }
+
         } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Database Error");
+            alert.setContentText("An error occurred while accessing the database. Please try again.");
+            alert.showAndWait();
         }
     }
+
 
     Stage resetStage=new Stage();
 
