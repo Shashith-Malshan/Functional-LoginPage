@@ -1,6 +1,7 @@
 package Control;
 
 import Model.User;
+import Password.PasswordUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,8 +23,10 @@ public class NewAccountFormController {
     public Label lblResend;
     public CheckBox checkLogged;
 
-    public void actionCreate(ActionEvent actionEvent) {
-    User user=new User(txtEmail.getText().trim(),txtPassword.getText().trim());
+   PasswordUtils passwordUtils=new PasswordUtils();
+
+   public void actionCreate(ActionEvent actionEvent) {
+    User user=new User(txtEmail.getText().trim(),passwordUtils.hashPassword("txtPassword.getText().trim()"));
         try {
             boolean isAdded=UserController.addUser(user);
             if (isAdded) {
