@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -23,8 +24,13 @@ public class NewAccountFormController {
     public TextField txtOtp;
     public Label lblResend;
     public CheckBox checkLogged;
+    public TextField txtOtp1;
+    public TextField txtOtp2;
+    public TextField txtOtp3;
+    public TextField txtOtp4;
+    public Label lblVerified;
 
-   PasswordUtils passwordUtils=new PasswordUtils();
+    PasswordUtils passwordUtils=new PasswordUtils();
 
    public void actionCreate(ActionEvent actionEvent) {
     User user=new User(txtEmail.getText().trim(),txtPassword.getText().trim());
@@ -34,7 +40,7 @@ public class NewAccountFormController {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information");
                 alert.setHeaderText(null);
-                alert.setContentText("Customer added successfully!");
+                alert.setContentText("Account Created!");
                 alert.showAndWait();
             }
         } catch (SQLException | ClassNotFoundException e) {
@@ -55,18 +61,34 @@ public class NewAccountFormController {
         primaryStage.show();
     }
 
+    String otp=OtpUtils.generateOtp();
     public void actionGetOtp(ActionEvent actionEvent) {
 
         Alert otpAlert = new Alert(Alert.AlertType.INFORMATION);
         otpAlert.setTitle("OTP Verification");
-        otpAlert.setHeaderText("Your OTP is : "+OtpUtils.generateOtp());
+        otpAlert.setHeaderText("Your OTP is : "+otp);
         otpAlert.showAndWait();
     }
 
     public void clickedResend(MouseEvent mouseEvent) {
         Alert otpAlert = new Alert(Alert.AlertType.INFORMATION);
         otpAlert.setTitle("OTP Verification");
-        otpAlert.setHeaderText("Your OTP is : "+OtpUtils.generateOtp());
+        otpAlert.setHeaderText("Your OTP is : "+otp);
         otpAlert.showAndWait();
+    }
+
+    public void validateOtp(KeyEvent keyEvent) {
+        String receivedOtp=txtOtp1.getText().trim()+txtOtp2.getText().trim()+txtOtp3.getText().trim()+txtOtp4.getText().trim();
+        if(receivedOtp.equals(otp)){
+          lblVerified.setText("Verified");
+        }else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText(null);
+            alert.setContentText("Couldn't Verify");
+            alert.showAndWait();
+            return;
+        }
+
     }
 }

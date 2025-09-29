@@ -49,7 +49,7 @@
             <Font name="System Italic" size="12.0" />
          </font>
       </TextField>
-      <Label layoutX="31.0" layoutY="265.0" text="Util">
+      <Label layoutX="31.0" layoutY="265.0" text="Password">
          <font>
             <Font name="Arial Narrow" size="14.0" />
          </font>
@@ -67,10 +67,15 @@
             <Font name="System Italic" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtOtp4" layoutX="144.0" layoutY="199.0" prefHeight="30.0" prefWidth="30.0">
+      <TextField fx:id="txtOtp4" layoutX="144.0" layoutY="199.0" onKeyReleased="#validateOtp" prefHeight="30.0" prefWidth="30.0">
          <font>
             <Font name="System Italic" size="12.0" />
          </font>
       </TextField>
+      <Label fx:id="lblVerified" layoutX="328.0" layoutY="80.0" textFill="#49dc39">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
