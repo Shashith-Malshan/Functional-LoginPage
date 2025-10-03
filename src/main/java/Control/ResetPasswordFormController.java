@@ -44,13 +44,20 @@ public class ResetPasswordFormController {
 
     public void actionSubmit(ActionEvent actionEvent) {
         try {
-            if(UserController.resetPassword(txtEmail.getText().trim(),txtConfirmPassword.getText().trim())){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            if(txtNewPassword.getText().equals(txtConfirmPassword.getText())){
+                if(UserController.resetPassword(txtEmail.getText().trim(),txtConfirmPassword.getText().trim())){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Password Changed");
+                    alert.showAndWait();
+                }
+            }else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Information");
                 alert.setHeaderText(null);
-                alert.setContentText("Util Changed");
+                alert.setContentText("Passwords do not match ✘");
                 alert.showAndWait();
-
             }
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);

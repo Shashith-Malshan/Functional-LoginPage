@@ -43,8 +43,6 @@ public class MainLoginFormController {
 
             if (loginSuccess) {
                 UserController.setAutoFill(txtEmail.getText().trim(),checkLogged.isSelected());
-                //UserController.setAutoFill(txtEmail.getText().trim(),checkLogged.isSelected());
-                // Optionally, navigate to the next page here
             } else {
                 txtPassword.clear();
             }
