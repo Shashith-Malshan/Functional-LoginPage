@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class NewAccountFormController {
     public TextField txtEmail;
@@ -44,7 +45,22 @@ public class NewAccountFormController {
                 alert.setTitle("Information");
                 alert.setHeaderText(null);
                 alert.setContentText("Account Created!");
-                alert.showAndWait();
+
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                  Stage stage=(Stage) btnCreate.getScene().getWindow();
+                  stage.close();
+
+                    try {
+                        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/View/MainLoginForm.fxml"))));
+                    } catch (IOException e) {
+
+
+                    }
+                    primaryStage.show();
+
+                }
             }
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);

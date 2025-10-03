@@ -73,4 +73,22 @@ public class UserController {
         }
         return false;
     }
+
+    public static void setFailedAttempts(String email, boolean success) throws ClassNotFoundException, SQLException {
+        String SQL;
+        if (success) {
+
+            SQL = "UPDATE Users SET failed_attempts=0 WHERE email=?";
+        } else {
+
+            SQL = "UPDATE Users SET failed_attempts=failed_attempts+1 WHERE email=?";
+        }
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement stm = connection.prepareStatement(SQL)) {
+            stm.setString(1, email);
+            stm.executeUpdate();
+        }
+    }
+
 }
