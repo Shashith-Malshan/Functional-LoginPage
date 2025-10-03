@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,6 +30,7 @@ public class NewAccountFormController {
     public TextField txtOtp3;
     public TextField txtOtp4;
     public Label lblVerified;
+    public Label lblStrength;
 
     PasswordUtils passwordUtils=new PasswordUtils();
 
@@ -90,6 +92,23 @@ public class NewAccountFormController {
             alert.setContentText("Couldn't Verify");
             alert.showAndWait();
             return;
+        }
+
+    }
+
+    public void strengthIndicatorAction(KeyEvent keyEvent) {
+        if (txtPassword.getLength()<3) {
+            lblStrength.setText("Weak");
+            lblStrength.setTextFill(Color.RED);
+
+        } else if (txtPassword.getLength()<6) {
+            lblStrength.setText("Medium");
+            lblStrength.setTextFill(Color.ORANGE);
+
+        } else {
+            lblStrength.setText("Strong");
+            lblStrength.setTextFill(Color.GREEN);
+
         }
 
     }

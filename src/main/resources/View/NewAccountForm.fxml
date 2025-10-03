@@ -31,7 +31,7 @@
                 <Font name="Arial Narrow" size="14.0" />
             </font>
         </Label>
-        <PasswordField fx:id="txtPassword" layoutX="24.0" layoutY="292.0" prefHeight="30.0" prefWidth="350.0" />
+        <PasswordField fx:id="txtPassword" layoutX="24.0" layoutY="292.0" onKeyTyped="#strengthIndicatorAction" prefHeight="30.0" prefWidth="350.0" />
         <Button fx:id="btnCreate" layoutX="24.0" layoutY="362.0" mnemonicParsing="false" onAction="#actionCreate" prefHeight="26.0" prefWidth="350.0" style="-fx-background-color: #0077b6;" text="Create Account" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="11.0" />
@@ -73,6 +73,11 @@
          </font>
       </TextField>
       <Label fx:id="lblVerified" layoutX="328.0" layoutY="80.0" textFill="#49dc39">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblStrength" layoutX="327.0" layoutY="271.0">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

@@ -58,6 +58,7 @@ public class ResetPasswordFormController {
 
     }
 
+
     Stage primaryStage=new Stage();
     public void clickedBack(MouseEvent mouseEvent) {
         Stage stage=(Stage)lblBack.getScene().getWindow();
