@@ -82,6 +82,7 @@ public class UserController {
         } else {
 
             SQL = "UPDATE Users SET failed_attempts=failed_attempts+1 WHERE email=?";
+
         }
 
         try (Connection connection = DBConnection.getInstance().getConnection();
@@ -90,5 +91,36 @@ public class UserController {
             stm.executeUpdate();
         }
     }
+
+    public static boolean setAccountStatus() throws ClassNotFoundException, SQLException {
+        String SQL ="UPDATE users SET account_locked=1 WHERE failed_attempts>3";
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement stm = connection.prepareStatement(SQL)) {
+            return stm.executeUpdate()>0;
+
+        }
+    }
+
+    public static boolean checkAccountStatus(String email) throws ClassNotFoundException, SQLException {
+        String SQL = "SELECT account_locked FROM users WHERE email=?";
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement stm = connection.prepareStatement(SQL)) {
+
+            stm.setString(1, email);
+
+            try (ResultSet rst = stm.executeQuery()) {
+                if (rst.next()) {
+                    int storedValue = rst.getInt("account_locked"); // safer than String cast
+                    System.out.println(storedValue);
+                    return storedValue > 0; // true if account is locked
+                }
+            }
+        }
+
+        return false; // if user not found
+    }
+
 
 }

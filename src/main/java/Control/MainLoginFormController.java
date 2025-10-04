@@ -20,6 +20,8 @@ public class MainLoginFormController {
 
 
     public void actionLogin(ActionEvent actionEvent) {
+
+
         String email = txtEmail.getText().trim();
         String password = txtPassword.getText().trim();
 
@@ -34,18 +36,31 @@ public class MainLoginFormController {
 
         try {
             boolean loginSuccess = UserController.userExists(email, password);
+            UserController.setFailedAttempts(txtEmail.getText().trim(),loginSuccess);
 
-            Alert alert = new Alert(loginSuccess ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
-            alert.setTitle("Login Status");
-            alert.setHeaderText(null);
-            alert.setContentText(loginSuccess ? "Login Success!" : "Invalid email or password.");
-            alert.showAndWait();
+            if((UserController.setAccountStatus())||(UserController.checkAccountStatus(txtEmail.getText().trim()))){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Login Status");
+                alert.setHeaderText(null);
+                alert.setContentText("Account Locked");
+                alert.showAndWait();
 
-            if (loginSuccess) {
-                UserController.setAutoFill(txtEmail.getText().trim(),checkLogged.isSelected());
-            } else {
-                txtPassword.clear();
+            }else {
+                Alert alert = new Alert(loginSuccess ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
+                alert.setTitle("Login Status");
+                alert.setHeaderText(null);
+                alert.setContentText(loginSuccess ? "Login Success!" : "Invalid email or password.");
+                alert.showAndWait();
+
+                if (loginSuccess) {
+                    UserController.setAutoFill(txtEmail.getText().trim(),checkLogged.isSelected());
+                } else {
+                    txtPassword.clear();
+
+                }
             }
+
+
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
