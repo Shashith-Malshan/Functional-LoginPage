@@ -36,10 +36,14 @@ public class NewAccountFormController {
     PasswordUtils passwordUtils=new PasswordUtils();
 
    public void actionCreate(ActionEvent actionEvent) {
-       User user=new User(txtEmail.getText().trim(),txtPassword.getText().trim());
+       String receivedOtp=txtOtp1.getText().trim()+txtOtp2.getText().trim()+txtOtp3.getText().trim()+txtOtp4.getText().trim();
+
         try {
-            boolean isAdded=UserController.addUser(user);
-            if (isAdded) {
+
+            if (!txtEmail.getText().isEmpty() && !txtPassword.getText().isEmpty() && receivedOtp.equals(otp)) {
+                User user=new User(txtEmail.getText().trim(),txtPassword.getText().trim());
+
+                boolean isAdded=UserController.addUser(user);
                 UserController.setAutoFill(txtEmail.getText().trim(),checkLogged.isSelected());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information");
@@ -61,6 +65,13 @@ public class NewAccountFormController {
                     primaryStage.show();
 
                 }
+            }else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to Create Account");
+                alert.showAndWait();
+
             }
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -82,11 +93,18 @@ public class NewAccountFormController {
 
     String otp=OtpUtils.generateOtp();
     public void actionGetOtp(ActionEvent actionEvent) {
+        if(txtEmail.getText().isEmpty()){
+            Alert otpAlert = new Alert(Alert.AlertType.ERROR);
+            otpAlert.setTitle("OTP Verification");
+            otpAlert.setHeaderText("Email cannot be empty!");
+            otpAlert.showAndWait();
+        }else {
+            Alert otpAlert = new Alert(Alert.AlertType.INFORMATION);
+            otpAlert.setTitle("OTP Verification");
+            otpAlert.setHeaderText("Your OTP is : "+otp);
+            otpAlert.showAndWait();
+        }
 
-        Alert otpAlert = new Alert(Alert.AlertType.INFORMATION);
-        otpAlert.setTitle("OTP Verification");
-        otpAlert.setHeaderText("Your OTP is : "+otp);
-        otpAlert.showAndWait();
     }
 
     public void clickedResend(MouseEvent mouseEvent) {
@@ -100,6 +118,7 @@ public class NewAccountFormController {
         String receivedOtp=txtOtp1.getText().trim()+txtOtp2.getText().trim()+txtOtp3.getText().trim()+txtOtp4.getText().trim();
         if(receivedOtp.equals(otp)){
           lblVerified.setText("Verified");
+          txtEmail.setEditable(false);
 
         }else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -107,7 +126,11 @@ public class NewAccountFormController {
             alert.setHeaderText(null);
             alert.setContentText("Couldn't Verify");
             alert.showAndWait();
-            return;
+            txtOtp1.clear();
+            txtOtp2.clear();
+            txtOtp3.clear();
+            txtOtp4.clear();
+
         }
 
     }
